@@ -1,0 +1,264 @@
+const artists = [
+  {
+    id: "alessandro-moretti",
+    name: "Alessandro Moretti",
+    handle: "@moretti_light",
+    avatar: "/images/artworks/wanderer-above-fog.jpg",
+    cover: "/images/hero-bg.jpg",
+    verified: true,
+    movement: "Noir Expressionism",
+    followers: "14.2K",
+    following: "342",
+    avgRating: 4.9,
+    bio: "A master of contemporary light theory, Moretti bridges the gap between classical chiaroscuro and digital abstraction. His work captures the silent transition between dusk and dark in tranquil spaces.",
+    tags: ["Noir Expressionism", "Oil on Canvas", "Atmospheric Minimalism"],
+    location: "Florence, Italy",
+  },
+  {
+    id: "julian-thorne",
+    name: "Julian Thorne",
+    handle: "@julian_thorne",
+    avatar: "/images/artworks/girl-pearl-earring.jpg",
+    cover: "/images/hero-bg.jpg",
+    verified: true,
+    movement: "Contemporary Realism",
+    followers: "12.4K",
+    following: "189",
+    avgRating: 4.8,
+    bio: "Exploration of the ephemeral through oil and light. My work seeks to capture the quiet solitude of urban spaces, where forms lose their edge and the soul speaks in whispers.",
+    tags: ["Contemporary Realism", "Mixed Media", "Urban Nocturne"],
+    location: "London, UK",
+  },
+  {
+    id: "vincent-van-gogh",
+    name: "Vincent van Gogh",
+    handle: "@vangogh_official",
+    avatar: "/images/artworks/starry-night.jpg",
+    cover: "/images/artworks/starry-night.jpg",
+    verified: true,
+    movement: "Post-Impressionism",
+    followers: "284K",
+    following: "12",
+    avgRating: 5.0,
+    bio: "Dutch Post-Impressionist painter who became one of the most famous and influential figures in Western art history. Created dramatic, brushstroke-rich landscapes and highly expressive emotional masterpieces.",
+    tags: ["Post-Impressionism", "Oil on Canvas", "Expressive Brushwork"],
+    location: "Saint-Rémy-de-Provence, France",
+  },
+  {
+    id: "johannes-vermeer",
+    name: "Johannes Vermeer",
+    handle: "@vermeer_master",
+    avatar: "/images/artworks/girl-pearl-earring.jpg",
+    cover: "/images/artworks/girl-pearl-earring.jpg",
+    verified: true,
+    movement: "Baroque",
+    followers: "195K",
+    following: "8",
+    avgRating: 4.9,
+    bio: "Dutch Golden Age painter who specialized in domestic interior scenes of middle-class life. Renowned for his exquisite masterwork rendering of natural light and pearls.",
+    tags: ["Baroque", "Dutch Golden Age", "Luminous Light"],
+    location: "Delft, Netherlands",
+  },
+  {
+    id: "katsushika-hokusai",
+    name: "Katsushika Hokusai",
+    handle: "@hokusai_wave",
+    avatar: "/images/artworks/great-wave.jpg",
+    cover: "/images/artworks/great-wave.jpg",
+    verified: true,
+    movement: "Ukiyo-e",
+    followers: "210K",
+    following: "15",
+    avgRating: 4.9,
+    bio: "Japanese artist, ukiyo-e painter and printmaker of the Edo period. Creator of the world-famous print 'The Great Wave off Kanagawa' and 'Thirty-Six Views of Mount Fuji'.",
+    tags: ["Ukiyo-e", "Woodblock Print", "Japanese Master"],
+    location: "Edo (Tokyo), Japan",
+  },
+  {
+    id: "salvador-dali",
+    name: "Salvador Dalí",
+    handle: "@dali_surreal",
+    avatar: "/images/artworks/persistence-of-memory.jpg",
+    cover: "/images/artworks/persistence-of-memory.jpg",
+    verified: true,
+    movement: "Surrealism",
+    followers: "310K",
+    following: "42",
+    avgRating: 4.9,
+    bio: "Prominent Spanish surrealist artist renowned for technical skill, precise draftsmanship, and striking, bizarre dreamlike images in his surrealist compositions.",
+    tags: ["Surrealism", "Paranoiac-Critical", "Dreamscapes"],
+    location: "Figueres, Spain",
+  },
+  {
+    id: "caspar-david-friedrich",
+    name: "Caspar David Friedrich",
+    handle: "@friedrich_romantic",
+    avatar: "/images/artworks/wanderer-above-fog.jpg",
+    cover: "/images/artworks/wanderer-above-fog.jpg",
+    verified: true,
+    movement: "Romanticism",
+    followers: "165K",
+    following: "20",
+    avgRating: 4.8,
+    bio: "19th-century German Romantic landscape painter, generally considered the most important German artist of his generation. Known for allegorical landscapes featuring contemplative solitary figures.",
+    tags: ["Romanticism", "Sublime Landscapes", "Allegorical Art"],
+    location: "Dresden, Germany",
+  },
+  {
+    id: "gustav-klimt",
+    name: "Gustav Klimt",
+    handle: "@klimt_gold",
+    avatar: "/images/artworks/the-kiss.jpg",
+    cover: "/images/artworks/the-kiss.jpg",
+    verified: true,
+    movement: "Art Nouveau",
+    followers: "240K",
+    following: "30",
+    avgRating: 4.9,
+    bio: "Austrian symbolist painter and one of the most prominent members of the Vienna Secession movement. Famed for his Golden Phase paintings rich in gold leaf and decorative symbolism.",
+    tags: ["Art Nouveau", "Symbolism", "Gold Leaf Masterwork"],
+    location: "Vienna, Austria",
+  },
+  {
+    id: "edward-hopper",
+    name: "Edward Hopper",
+    handle: "@hopper_realism",
+    avatar: "/images/artworks/nighthawks.jpg",
+    cover: "/images/artworks/nighthawks.jpg",
+    verified: true,
+    movement: "American Realism",
+    followers: "142K",
+    following: "24",
+    avgRating: 4.8,
+    bio: "American realist painter and printmaker. Best known for his oil paintings depicting the subtle melancholy, architectural geometries, and quiet solitude of modern American life.",
+    tags: ["American Realism", "Urban Loneliness", "Cinematic Light"],
+    location: "New York, USA",
+  },
+  {
+    id: "claude-monet",
+    name: "Claude Monet",
+    handle: "@monet_giverny",
+    avatar: "/images/artworks/water-lilies.jpg",
+    cover: "/images/artworks/water-lilies.jpg",
+    verified: true,
+    movement: "Impressionism",
+    followers: "320K",
+    following: "18",
+    avgRating: 5.0,
+    bio: "French painter and founder of Impressionist painting who is seen as a key precursor to modernism. Celebrated for his plein-air light studies and Water Lilies series.",
+    tags: ["Impressionism", "Plein-Air", "Garden Landscapes"],
+    location: "Giverny, France",
+  },
+  {
+    id: "sandro-botticelli",
+    name: "Sandro Botticelli",
+    handle: "@botticelli_renaissance",
+    avatar: "/images/artworks/birth-of-venus.jpg",
+    cover: "/images/artworks/birth-of-venus.jpg",
+    verified: true,
+    movement: "Renaissance",
+    followers: "270K",
+    following: "10",
+    avgRating: 4.9,
+    bio: "Italian painter of the Early Renaissance. Belonged to the Florentine School under the patronage of Lorenzo de' Medici, creating mythologies of transcendent beauty.",
+    tags: ["High Renaissance", "Florentine School", "Classical Mythology"],
+    location: "Florence, Italy",
+  },
+  {
+    id: "grant-wood",
+    name: "Grant Wood",
+    handle: "@wood_gothic",
+    avatar: "/images/artworks/american-gothic.jpg",
+    cover: "/images/artworks/american-gothic.jpg",
+    verified: true,
+    movement: "Regionalism",
+    followers: "98K",
+    following: "14",
+    avgRating: 4.7,
+    bio: "American painter best known for his depictions of the American Midwest, particularly American Gothic, an iconic image of 20th-century American art.",
+    tags: ["Regionalism", "American Midwest", "Iconic Portraiture"],
+    location: "Iowa, USA",
+  },
+  {
+    id: "georges-seurat",
+    name: "Georges Seurat",
+    handle: "@seurat_pointillism",
+    avatar: "/images/artworks/sunday-grande-jatte.jpg",
+    cover: "/images/artworks/sunday-grande-jatte.jpg",
+    verified: true,
+    movement: "Pointillism",
+    followers: "180K",
+    following: "16",
+    avgRating: 4.8,
+    bio: "French Post-Impressionist artist. Devised the chromatic techniques of pointillism and chromoluminarism in monumental compositions of serene tranquility.",
+    tags: ["Pointillism", "Post-Impressionism", "Color Theory"],
+    location: "Paris, France",
+  },
+  {
+    id: "edvard-munch",
+    name: "Edvard Munch",
+    handle: "@munch_expression",
+    avatar: "/images/artworks/the-scream.jpg",
+    cover: "/images/artworks/the-scream.jpg",
+    verified: true,
+    movement: "Expressionism",
+    followers: "230K",
+    following: "22",
+    avgRating: 4.9,
+    bio: "Norwegian painter whose best-known work, The Scream, has become one of the most iconic images of world art, symbolizing psychological anxiety.",
+    tags: ["Expressionism", "Symbolism", "Psychological Art"],
+    location: "Oslo, Norway",
+  },
+];
+
+export function getArtistById(id) {
+  if (!id) return artists[0];
+  const slug = id.toLowerCase().trim();
+  const normSlug = slug.replace(/[^a-z0-9]/g, '');
+
+  // 1. Check in LocalStorage for custom created artists first
+  if (typeof window !== "undefined") {
+    try {
+      const customArtists = JSON.parse(localStorage.getItem("artbox_customArtists") || "[]");
+      const matchCustom = customArtists.find((a) => {
+        const normId = (a.id || '').replace(/[^a-z0-9]/g, '');
+        const normName = (a.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        return normId === normSlug || normName.includes(normSlug) || normSlug.includes(normId);
+      });
+      if (matchCustom) return matchCustom;
+    } catch (e) {}
+  }
+
+  // 2. Check static artists list
+  const match = artists.find((a) => {
+    const normId = a.id.replace(/[^a-z0-9]/g, '');
+    const normName = a.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return normId === normSlug || normName.includes(normSlug) || normSlug.includes(normId);
+  });
+
+  if (match) return match;
+
+  // 3. Dynamic fallback for any artist name
+  const cleanName = id
+    .split(/[-_]/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(' ');
+
+  return {
+    id: slug,
+    name: cleanName,
+    handle: `@${slug.replace(/[^a-z0-9]/g, '_')}`,
+    avatar: "/images/artworks/starry-night.jpg",
+    cover: "/images/hero-bg.jpg",
+    verified: true,
+    movement: "Master Artist",
+    followers: "15.8K",
+    following: "45",
+    avgRating: 4.8,
+    bio: `Renowned visual artist known for profound masterworks and contributions to the world of fine art and gallery exhibitions.`,
+    tags: ["Fine Art", "Masterpiece", "Gallery Collection"],
+    location: "International",
+  };
+}
+
+export default artists;

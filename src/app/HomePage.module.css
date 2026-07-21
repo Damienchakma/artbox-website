@@ -1,0 +1,360 @@
+.section {
+  padding: 6rem 0;
+  background-color: var(--bg-primary);
+}
+
+.container {
+  max-width: var(--max-width, 1440px);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+/* ── Trending Section Title Layout ── */
+.trendingHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  width: 100%;
+}
+
+.trendingTitle {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.trendingLine {
+  flex-grow: 1;
+  height: 1px;
+  background-color: rgba(77, 70, 55, 0.3);
+}
+
+/* ── Browse by Genre ── */
+.genreSection {
+  padding: 6rem 0;
+  background-color: var(--bg-dim);
+}
+
+.centerHeader {
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--accent-primary);
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.sectionTitle {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.genreGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px; /* Tight, premium grid spacing */
+}
+
+.genreTile {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  display: block;
+}
+
+.genreImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s ease;
+}
+
+.genreOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-base), border-bottom var(--transition-base);
+  border-bottom: 0px solid var(--accent-primary);
+}
+
+.genreTile:hover .genreImage {
+  transform: scale(1.1);
+}
+
+.genreTile:hover .genreOverlay {
+  background: rgba(0, 0, 0, 0.25);
+  border-bottom: 4px solid var(--accent-primary);
+}
+
+.genreName {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ── Artist Spotlight ── */
+.spotlightSection {
+  position: relative;
+  padding: 8rem 0;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+}
+
+.spotlightBg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.2;
+  filter: blur(80px);
+  transform: scale(1.25);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.spotlightBgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spotlightContainer {
+  position: relative;
+  z-index: 10;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--space-4xl);
+}
+
+.spotlightImageCol {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.spotlightBorder {
+  padding: 8px;
+  border-radius: var(--border-radius-full);
+  border: 1px solid var(--border-ghost);
+  position: relative;
+}
+
+.spotlightImage {
+  width: 380px;
+  height: 380px;
+  border-radius: var(--border-radius-full);
+  object-fit: cover;
+  box-shadow: var(--shadow-xl);
+}
+
+.spotlightInfoCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+}
+
+.spotlightEyebrow {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-primary);
+  font-weight: 500;
+}
+
+.spotlightArtistName {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.spotlightBio {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.spotlightBtn {
+  margin-top: var(--space-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 36px;
+  background: var(--accent-gradient);
+  color: var(--text-inverse);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  border-radius: var(--border-radius-full);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-gold);
+}
+
+.spotlightBtn:hover {
+  opacity: 0.9;
+}
+
+/* ── Recently Reviewed ── */
+.recentlyHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--space-2xl);
+  width: 100%;
+}
+
+.recentlyTitle {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.browseAllLink {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-base);
+}
+
+.browseAllLink:hover {
+  border-color: var(--accent-primary);
+}
+
+.recentGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+}
+
+.recentCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.recentImageLink {
+  display: block;
+}
+
+.recentImageWrapper {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--bg-tertiary);
+}
+
+.recentImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-base);
+}
+
+.recentCard:hover .recentImage {
+  transform: scale(1.05);
+}
+
+.recentMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.recentLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recentArtTitle {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.recentCritique {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.recentStars {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .genreGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .spotlightContainer {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    text-align: center;
+  }
+  
+  .spotlightImageCol {
+    justify-content: center;
+  }
+  
+  .spotlightInfoCol {
+    align-items: center;
+  }
+  
+  .recentGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .genreGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .recentGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .spotlightImage {
+    width: 280px;
+    height: 280px;
+  }
+}

@@ -1,0 +1,115 @@
+.footer {
+  background-color: #0D0C0A;
+  border-top: 1px solid var(--bg-secondary);
+  padding: var(--space-4xl) 0 var(--space-2xl);
+  width: 100%;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xl);
+  text-align: center;
+}
+
+.logoText {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xl);
+}
+
+.link {
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.link:hover {
+  color: var(--accent-primary);
+}
+
+.socials {
+  display: flex;
+  gap: var(--space-xl);
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.socialLink {
+  color: var(--text-secondary);
+  transition: color var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialLink:hover {
+  color: var(--accent-primary);
+}
+
+.socialLink span {
+  font-size: 24px;
+}
+
+.bottom {
+  width: 100%;
+  border-top: 1px solid rgba(77, 70, 55, 0.1);
+  padding-top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.copyright {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+.metaLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg);
+}
+
+.metaLink {
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: rgba(140, 128, 112, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.metaLink:hover {
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    gap: var(--space-md);
+  }
+}

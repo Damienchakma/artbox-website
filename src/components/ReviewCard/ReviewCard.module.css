@@ -1,0 +1,154 @@
+.card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--border-radius-md);
+  padding: var(--space-lg);
+  position: relative;
+  transition: border-color var(--transition-base);
+  animation: fadeIn 0.4s ease both;
+}
+
+.card:hover {
+  border-color: var(--border-medium);
+}
+
+.newCard {
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 0 1px var(--accent-secondary), var(--shadow-gold);
+  animation: newCardIn 0.5s var(--transition-spring) both;
+}
+
+@keyframes newCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.newBadge {
+  position: absolute;
+  top: -10px;
+  left: var(--space-lg);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--text-inverse);
+  background: var(--accent-gradient);
+  padding: 2px var(--space-sm);
+  border-radius: var(--border-radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  animation: shimmer 2s linear infinite;
+  background-size: 200% auto;
+}
+
+@keyframes shimmer {
+  to { background-position: 200% center; }
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--fs-small);
+  color: var(--bg-primary);
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+
+.author {
+  font-weight: 600;
+  font-size: var(--fs-small);
+  color: var(--text-primary);
+}
+
+.date {
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.body {
+  margin-bottom: var(--space-md);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+  font-style: italic;
+}
+
+.content {
+  font-size: var(--fs-small);
+  color: var(--text-secondary);
+  line-height: var(--lh-relaxed);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.likeBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  padding: 4px var(--space-sm);
+  border-radius: var(--border-radius-sm);
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+}
+
+.likeBtn:hover {
+  color: var(--accent-primary);
+  background: var(--accent-glow);
+  border-color: var(--border-subtle);
+}
+
+.likeBtn.liked {
+  color: var(--accent-primary);
+}
+
+.likeBtn.liked svg {
+  animation: heartPop 0.3s var(--transition-spring);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

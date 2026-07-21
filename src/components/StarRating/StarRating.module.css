@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.starBtn {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  line-height: 0;
+  transition: transform var(--transition-fast);
+}
+
+.starBtn:disabled {
+  cursor: default;
+}
+
+.starBtn:not(:disabled):hover {
+  transform: scale(1.2);
+}
+
+.starBtn.filled {
+  color: var(--star-filled);
+}
+
+.starBtn.empty {
+  color: var(--star-empty);
+}
+
+.interactive .starBtn:not(:disabled):hover {
+  transform: scale(1.25);
+}
+
+.count {
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  margin-left: 4px;
+}
