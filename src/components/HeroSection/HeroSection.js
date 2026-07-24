@@ -34,13 +34,17 @@ export default function HeroSection() {
         </p>
 
         <div className={styles.actions}>
-          <Link href="/gallery" id="hero-explore-btn" className={styles.primaryBtn}>
-            Explore Arts
+          <Link href="/marketplace" id="hero-marketplace-btn" className={styles.primaryBtn}>
+            Shop Marketplace
+          </Link>
+          <Link href="/gallery" id="hero-explore-btn" className={styles.secondaryBtn}>
+            Explore Gallery
           </Link>
           <Link href="/about" id="hero-review-btn" className={styles.secondaryBtn}>
             Join as Artist
           </Link>
         </div>
+
       </div>
     </section>
   );

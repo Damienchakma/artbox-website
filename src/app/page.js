@@ -62,7 +62,56 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Art Marketplace Showcase */}
+      <section className={styles.marketplaceShowcaseSection}>
+        <div className={styles.container}>
+          <div className={styles.marketHeader}>
+            <div>
+              <span className={styles.eyebrow}>Art Marketplace</span>
+              <h2 className={styles.sectionTitle}>Acquire Fine Art & Digital Editions</h2>
+              <p className={styles.marketSub}>
+                Collect museum-grade physical original canvases shipped directly to your gallery or instant 8K digital master licenses.
+              </p>
+            </div>
+            <Link href="/marketplace" className={styles.visitMarketplaceBtn}>
+              Visit Marketplace &rarr;
+            </Link>
+          </div>
+
+          <div className={styles.marketGrid}>
+            {artworks.slice(0, 3).map((art) => (
+              <div key={art.id} className={styles.marketCard}>
+                <div className={styles.marketImageWrapper}>
+                  <img src={art.image} alt={art.title} className={styles.marketImage} />
+                  <div className={styles.marketTagRow}>
+                    <span className={styles.physicalPill}>Original Canvas: ${art.pricePhysical?.toLocaleString()}</span>
+                    <span className={styles.digitalPill}>Digital 8K: ${art.priceDigital?.toLocaleString()}</span>
+                  </div>
+                </div>
+
+                <div className={styles.marketCardBody}>
+                  <div className={styles.marketCardMeta}>
+                    <span className={styles.marketArtist}>{art.artist}</span>
+                    <h3 className={styles.marketArtTitle}>{art.title}</h3>
+                  </div>
+
+                  <div className={styles.marketCardActions}>
+                    <Link href={`/art/${art.id}`} className={styles.detailsBtn}>
+                      View Artwork Details
+                    </Link>
+                    <Link href={`/art/${art.id}`} className={styles.buyNowBtn}>
+                      Buy Art
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Genre Grid */}
+
       <section className={styles.genreSection}>
         <div className={styles.container}>
           <div className={styles.centerHeader}>

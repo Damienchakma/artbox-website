@@ -1,7 +1,7 @@
 'use client';
 
 import React, { use, useState } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
 import StarRating from '@/components/StarRating/StarRating';
@@ -9,10 +9,103 @@ import RatingBreakdown from '@/components/RatingBreakdown/RatingBreakdown';
 import ReviewCard from '@/components/ReviewCard/ReviewCard';
 import RelatedArt from '@/components/RelatedArt/RelatedArt';
 import ReviewForm from './ReviewForm';
-import { MapPin, Calendar, Layers, Ruler, ArrowLeft, MessageSquare } from 'lucide-react';
+import { MapPin, Calendar, Layers, Ruler, ArrowLeft, MessageSquare, ShoppingBag, Heart, Package, Download, ShieldCheck, Truck } from 'lucide-react';
 import styles from './ArtDetailPage.module.css';
 
+function PurchaseBox({ art }) {
+  const { addToCart, toggleWishlist, isInWishlist, setIsCartOpen } = useApp();
+  const router = useRouter();
+  const [selectedEdition, setSelectedEdition] = useState('physical'); // 'physical' | 'digital'
+
+  const inWishlist = isInWishlist(art.id);
+  const currentPrice = selectedEdition === 'physical' ? art.pricePhysical : art.priceDigital;
+
+  const handleAddToCart = () => {
+    addToCart(art.id, selectedEdition);
+    setIsCartOpen(true);
+  };
+
+  const handleBuyNow = () => {
+    addToCart(art.id, selectedEdition);
+    router.push('/checkout');
+  };
+
+  return (
+    <div className={styles.purchaseWidget}>
+      <h3 className={styles.purchaseWidgetTitle}>Acquire Artwork Edition</h3>
+
+      {/* Edition Selection Tabs */}
+      <div className={styles.editionSelector}>
+        <button
+          type="button"
+          className={`${styles.editionCard} ${selectedEdition === 'physical' ? styles.editionSelected : ''}`}
+          onClick={() => setSelectedEdition('physical')}
+        >
+          <div className={styles.editionHeader}>
+            <span className={styles.editionTitle}>
+              <Package size={15} /> Physical Original
+            </span>
+            <span className={styles.editionPrice}>${art.pricePhysical?.toLocaleString()}</span>
+          </div>
+          <p className={styles.editionDesc}>
+            Framed canvas / woodblock print with Certificate of Authenticity.
+          </p>
+        </button>
+
+        <button
+          type="button"
+          className={`${styles.editionCard} ${selectedEdition === 'digital' ? styles.editionSelected : ''}`}
+          onClick={() => setSelectedEdition('digital')}
+        >
+          <div className={styles.editionHeader}>
+            <span className={styles.editionTitle}>
+              <Download size={15} /> Digital 8K Master
+            </span>
+            <span className={styles.editionPrice}>${art.priceDigital?.toLocaleString()}</span>
+          </div>
+          <p className={styles.editionDesc}>
+            Instant 8K Ultra-HD download + Provenance token.
+          </p>
+        </button>
+      </div>
+
+      {/* Guarantee & Delivery info */}
+      <div className={styles.deliveryBadge}>
+        {selectedEdition === 'physical' ? (
+          <>
+            <Truck size={16} className={styles.badgeIcon} />
+            <span>Shipped in {art.shippingDays || '3-5 Days'} with white-glove crate insurance.</span>
+          </>
+        ) : (
+          <>
+            <ShieldCheck size={16} className={styles.badgeIcon} />
+            <span>{art.digitalLicense || 'Commercial Master License'} — Instant Download post checkout.</span>
+          </>
+        )}
+      </div>
+
+      {/* Action Buttons */}
+      <div className={styles.purchaseActions}>
+        <button onClick={handleAddToCart} className={styles.addToCartBtn}>
+          <ShoppingBag size={18} /> Add to Cart — ${currentPrice?.toLocaleString()}
+        </button>
+        <button onClick={handleBuyNow} className={styles.buyNowBtn}>
+          Buy Now
+        </button>
+        <button
+          onClick={() => toggleWishlist(art.id)}
+          className={`${styles.wishlistIconBtn} ${inWishlist ? styles.wishlistedBtn : ''}`}
+          title="Save to Wishlist"
+        >
+          <Heart size={20} fill={inWishlist ? 'var(--accent-primary)' : 'none'} />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ArtDetailPage({ params }) {
+
   const { id } = use(params);
   const {
     artworks,
@@ -149,6 +242,9 @@ export default function ArtDetailPage({ params }) {
               </div>
             </div>
 
+            {/* Marketplace Purchase Box */}
+            <PurchaseBox art={art} />
+
             <hr className={styles.divider} />
 
             {/* Description */}
@@ -156,6 +252,7 @@ export default function ArtDetailPage({ params }) {
               <h2 className={styles.sectionLabel}>About This Work</h2>
               <p className={styles.descText}>{art.description}</p>
             </div>
+
 
             <hr className={styles.divider} />
 
