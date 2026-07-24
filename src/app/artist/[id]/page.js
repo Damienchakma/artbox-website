@@ -6,7 +6,8 @@ import { useApp } from '@/context/AppContext';
 import { getArtistById } from '@/data/artists';
 import ArtCard from '@/components/ArtCard/ArtCard';
 import StarRating from '@/components/StarRating/StarRating';
-import { CheckCircle2, Share2, Heart, ArrowLeft } from 'lucide-react';
+import ArtistChatModal from '@/components/ArtistChatModal/ArtistChatModal';
+import { CheckCircle2, Share2, Heart, ArrowLeft, MessageSquare, Sparkles, Clock, ShieldCheck } from 'lucide-react';
 import styles from './ArtistProfilePage.module.css';
 
 export default function ArtistProfilePage({ params }) {
@@ -14,6 +15,7 @@ export default function ArtistProfilePage({ params }) {
   const artist = getArtistById(id);
   const { artworks, getAverageRating, addToast } = useApp();
   const [isFollowing, setIsFollowing] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Get artworks by this artist or matching movement
   const artistArtworks = artworks.filter(
@@ -39,6 +41,8 @@ export default function ArtistProfilePage({ params }) {
     }
   };
 
+  const isLiving = artist.isLiving !== false;
+
   return (
     <div className={styles.page}>
       <title>{`${artist.name} — Artist Profile & Gallery | ArtBox`}</title>
@@ -53,9 +57,9 @@ export default function ArtistProfilePage({ params }) {
 
         {/* Back Link */}
         <div className={styles.backWrapper}>
-          <Link href="/gallery" className={styles.backBtn}>
+          <Link href="/artists" className={styles.backBtn}>
             <ArrowLeft size={16} />
-            Back to Gallery
+            Back to Artists
           </Link>
         </div>
 
@@ -66,12 +70,23 @@ export default function ArtistProfilePage({ params }) {
           </div>
           <h1 className={styles.artistName}>{artist.name}</h1>
           <p className={styles.artistHandle}>{artist.handle}</p>
-          {artist.verified && (
-            <div className={styles.verifiedBadge}>
-              <CheckCircle2 size={14} />
-              <span>Verified Artist</span>
-            </div>
-          )}
+          <div className={styles.statusBadgeRow}>
+            {artist.verified && (
+              <div className={styles.verifiedBadge}>
+                <CheckCircle2 size={14} />
+                <span>Verified Artist</span>
+              </div>
+            )}
+            {isLiving ? (
+              <span className={styles.activePill}>
+                <Sparkles size={12} /> Active Studio • Open for Commissions
+              </span>
+            ) : (
+              <span className={styles.legacyPill}>
+                <Clock size={12} /> {artist.yearsActive || 'Historical Master Archive'}
+              </span>
+            )}
+          </div>
         </div>
       </section>
 
@@ -97,6 +112,18 @@ export default function ArtistProfilePage({ params }) {
           </div>
 
           <div className={styles.actionRow}>
+            {isLiving ? (
+              <button onClick={() => setIsChatOpen(true)} className={styles.chatCommissionBtn}>
+                <MessageSquare size={16} />
+                Chat & Commission Artist
+              </button>
+            ) : (
+              <div className={styles.legacyNoticeBox}>
+                <ShieldCheck size={16} className={styles.legacyIcon} />
+                <span>Historical Master — Direct messaging unavailable.</span>
+              </div>
+            )}
+
             <button
               className={`${styles.followBtn} ${isFollowing ? styles.following : ''}`}
               onClick={handleFollow}
@@ -110,6 +137,16 @@ export default function ArtistProfilePage({ params }) {
           </div>
         </div>
       </section>
+
+      {/* Artist Persona Chat Modal */}
+      {isLiving && (
+        <ArtistChatModal
+          artist={artist}
+          isOpen={isChatOpen}
+          onClose={() => setIsChatOpen(false)}
+        />
+      )}
+
 
       {/* Bio & About Section */}
       <section className={styles.bioSection}>

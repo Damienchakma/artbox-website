@@ -52,7 +52,16 @@ export default function ArtistsPage() {
                   loading="lazy"
                 />
                 <div className={styles.cardOverlay} />
+
+                <div className={styles.badgeWrapper}>
+                  {artist.isLiving !== false ? (
+                    <span className={styles.activeBadge}>Active Studio • Commissions Open</span>
+                  ) : (
+                    <span className={styles.legacyBadge}>Historical Master • Archive</span>
+                  )}
+                </div>
               </div>
+
 
               <div className={styles.cardBody}>
                 <div className={styles.avatarRing}>

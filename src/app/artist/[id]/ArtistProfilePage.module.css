@@ -116,8 +116,85 @@
   letter-spacing: 0.1em;
   padding: 4px 14px;
   border-radius: var(--border-radius-full);
-  margin-top: var(--space-sm);
 }
+
+.statusBadgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.activePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  color: var(--accent-light);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 14px;
+  border-radius: var(--border-radius-full);
+}
+
+.legacyPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-ghost);
+  color: var(--text-tertiary);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 14px;
+  border-radius: var(--border-radius-full);
+}
+
+.chatCommissionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--accent-gradient);
+  color: var(--text-inverse);
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  border-radius: var(--border-radius-full);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-gold);
+}
+
+.chatCommissionBtn:hover {
+  opacity: 0.95;
+  transform: translateY(-2px);
+}
+
+.legacyNoticeBox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-ghost);
+  border-radius: var(--border-radius-full);
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+}
+
+.legacyIcon {
+  color: var(--accent-primary);
+}
+
 
 /* ── Stats Section ── */
 .statsSection {

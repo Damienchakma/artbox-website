@@ -13,6 +13,9 @@ const artists = [
     bio: "A master of contemporary light theory, Moretti bridges the gap between classical chiaroscuro and digital abstraction. His work captures the silent transition between dusk and dark in tranquil spaces.",
     tags: ["Noir Expressionism", "Oil on Canvas", "Atmospheric Minimalism"],
     location: "Florence, Italy",
+    isLiving: true,
+    commissionStatus: "Open for Commissions",
+    yearsActive: "Active Contemporary Studio",
   },
   {
     id: "julian-thorne",
@@ -28,6 +31,9 @@ const artists = [
     bio: "Exploration of the ephemeral through oil and light. My work seeks to capture the quiet solitude of urban spaces, where forms lose their edge and the soul speaks in whispers.",
     tags: ["Contemporary Realism", "Mixed Media", "Urban Nocturne"],
     location: "London, UK",
+    isLiving: true,
+    commissionStatus: "Open for Commissions",
+    yearsActive: "Active Contemporary Studio",
   },
   {
     id: "vincent-van-gogh",
@@ -43,6 +49,9 @@ const artists = [
     bio: "Dutch Post-Impressionist painter who became one of the most famous and influential figures in Western art history. Created dramatic, brushstroke-rich landscapes and highly expressive emotional masterpieces.",
     tags: ["Post-Impressionism", "Oil on Canvas", "Expressive Brushwork"],
     location: "Saint-Rémy-de-Provence, France",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1853 – 1890 (Legacy)",
   },
   {
     id: "johannes-vermeer",
@@ -58,6 +67,9 @@ const artists = [
     bio: "Dutch Golden Age painter who specialized in domestic interior scenes of middle-class life. Renowned for his exquisite masterwork rendering of natural light and pearls.",
     tags: ["Baroque", "Dutch Golden Age", "Luminous Light"],
     location: "Delft, Netherlands",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1632 – 1675 (Legacy)",
   },
   {
     id: "katsushika-hokusai",
@@ -73,6 +85,9 @@ const artists = [
     bio: "Japanese artist, ukiyo-e painter and printmaker of the Edo period. Creator of the world-famous print 'The Great Wave off Kanagawa' and 'Thirty-Six Views of Mount Fuji'.",
     tags: ["Ukiyo-e", "Woodblock Print", "Japanese Master"],
     location: "Edo (Tokyo), Japan",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1760 – 1849 (Legacy)",
   },
   {
     id: "salvador-dali",
@@ -88,6 +103,9 @@ const artists = [
     bio: "Prominent Spanish surrealist artist renowned for technical skill, precise draftsmanship, and striking, bizarre dreamlike images in his surrealist compositions.",
     tags: ["Surrealism", "Paranoiac-Critical", "Dreamscapes"],
     location: "Figueres, Spain",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1904 – 1989 (Legacy)",
   },
   {
     id: "caspar-david-friedrich",
@@ -103,6 +121,9 @@ const artists = [
     bio: "19th-century German Romantic landscape painter, generally considered the most important German artist of his generation. Known for allegorical landscapes featuring contemplative solitary figures.",
     tags: ["Romanticism", "Sublime Landscapes", "Allegorical Art"],
     location: "Dresden, Germany",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1774 – 1840 (Legacy)",
   },
   {
     id: "gustav-klimt",
@@ -118,6 +139,9 @@ const artists = [
     bio: "Austrian symbolist painter and one of the most prominent members of the Vienna Secession movement. Famed for his Golden Phase paintings rich in gold leaf and decorative symbolism.",
     tags: ["Art Nouveau", "Symbolism", "Gold Leaf Masterwork"],
     location: "Vienna, Austria",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1862 – 1918 (Legacy)",
   },
   {
     id: "edward-hopper",
@@ -133,6 +157,9 @@ const artists = [
     bio: "American realist painter and printmaker. Best known for his oil paintings depicting the subtle melancholy, architectural geometries, and quiet solitude of modern American life.",
     tags: ["American Realism", "Urban Loneliness", "Cinematic Light"],
     location: "New York, USA",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1882 – 1967 (Legacy)",
   },
   {
     id: "claude-monet",
@@ -148,6 +175,9 @@ const artists = [
     bio: "French painter and founder of Impressionist painting who is seen as a key precursor to modernism. Celebrated for his plein-air light studies and Water Lilies series.",
     tags: ["Impressionism", "Plein-Air", "Garden Landscapes"],
     location: "Giverny, France",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1840 – 1926 (Legacy)",
   },
   {
     id: "sandro-botticelli",
@@ -163,6 +193,9 @@ const artists = [
     bio: "Italian painter of the Early Renaissance. Belonged to the Florentine School under the patronage of Lorenzo de' Medici, creating mythologies of transcendent beauty.",
     tags: ["High Renaissance", "Florentine School", "Classical Mythology"],
     location: "Florence, Italy",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1445 – 1510 (Legacy)",
   },
   {
     id: "grant-wood",
@@ -178,6 +211,9 @@ const artists = [
     bio: "American painter best known for his depictions of the American Midwest, particularly American Gothic, an iconic image of 20th-century American art.",
     tags: ["Regionalism", "American Midwest", "Iconic Portraiture"],
     location: "Iowa, USA",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1891 – 1942 (Legacy)",
   },
   {
     id: "georges-seurat",
@@ -193,6 +229,9 @@ const artists = [
     bio: "French Post-Impressionist artist. Devised the chromatic techniques of pointillism and chromoluminarism in monumental compositions of serene tranquility.",
     tags: ["Pointillism", "Post-Impressionism", "Color Theory"],
     location: "Paris, France",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1859 – 1891 (Legacy)",
   },
   {
     id: "edvard-munch",
@@ -208,6 +247,9 @@ const artists = [
     bio: "Norwegian painter whose best-known work, The Scream, has become one of the most iconic images of world art, symbolizing psychological anxiety.",
     tags: ["Expressionism", "Symbolism", "Psychological Art"],
     location: "Oslo, Norway",
+    isLiving: false,
+    commissionStatus: "Historical Master (Archive)",
+    yearsActive: "1863 – 1944 (Legacy)",
   },
 ];
 
@@ -225,7 +267,14 @@ export function getArtistById(id) {
         const normName = (a.name || '').toLowerCase().replace(/[^a-z0-9]/g, '');
         return normId === normSlug || normName.includes(normSlug) || normSlug.includes(normId);
       });
-      if (matchCustom) return matchCustom;
+      if (matchCustom) {
+        return {
+          ...matchCustom,
+          isLiving: matchCustom.isLiving !== undefined ? matchCustom.isLiving : true,
+          commissionStatus: matchCustom.commissionStatus || "Open for Commissions",
+          yearsActive: matchCustom.yearsActive || "Active Contemporary Studio",
+        };
+      }
     } catch (e) {}
   }
 
@@ -257,8 +306,12 @@ export function getArtistById(id) {
     avgRating: 4.8,
     bio: `Renowned visual artist known for profound masterworks and contributions to the world of fine art and gallery exhibitions.`,
     tags: ["Fine Art", "Masterpiece", "Gallery Collection"],
-    location: "International",
+    location: "International Studio",
+    isLiving: true,
+    commissionStatus: "Open for Commissions",
+    yearsActive: "Active Studio",
   };
 }
 
 export default artists;
+
