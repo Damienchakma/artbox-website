@@ -7,13 +7,13 @@ import { getArtistById } from '@/data/artists';
 import ArtCard from '@/components/ArtCard/ArtCard';
 import StarRating from '@/components/StarRating/StarRating';
 import ArtistChatModal from '@/components/ArtistChatModal/ArtistChatModal';
-import { CheckCircle2, Share2, Heart, ArrowLeft, MessageSquare, Sparkles, Clock, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, Share2, Heart, ArrowLeft, MessageSquare, Sparkles, Clock, ShieldCheck, User } from 'lucide-react';
 import styles from './ArtistProfilePage.module.css';
 
 export default function ArtistProfilePage({ params }) {
   const { id } = use(params);
   const artist = getArtistById(id);
-  const { artworks, getAverageRating, addToast } = useApp();
+  const { currentUser, artworks, getAverageRating, addToast } = useApp();
   const [isFollowing, setIsFollowing] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
@@ -112,7 +112,12 @@ export default function ArtistProfilePage({ params }) {
           </div>
 
           <div className={styles.actionRow}>
-            {isLiving ? (
+            {currentUser && currentUser.id === artist.id ? (
+              <div className={styles.legacyNoticeBox}>
+                <User size={16} className={styles.legacyIcon} />
+                <span>This is your profile.</span>
+              </div>
+            ) : isLiving ? (
               <button onClick={() => setIsChatOpen(true)} className={styles.chatCommissionBtn}>
                 <MessageSquare size={16} />
                 Chat & Commission Artist
@@ -139,7 +144,7 @@ export default function ArtistProfilePage({ params }) {
       </section>
 
       {/* Artist Persona Chat Modal */}
-      {isLiving && (
+      {isLiving && !(currentUser && currentUser.id === artist.id) && (
         <ArtistChatModal
           artist={artist}
           isOpen={isChatOpen}

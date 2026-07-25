@@ -65,22 +65,26 @@ export default function Navbar() {
           </nav>
 
           <div className={styles.rightActions}>
-            {/* Wishlist Button */}
-            <Link href="/wishlist" className={styles.iconBtn} title="Saved Wishlist">
-              <Heart size={20} />
-              {wishlistCount > 0 && <span className={styles.badge}>{wishlistCount}</span>}
-            </Link>
+            {/* Wishlist Button — logged in only */}
+            {currentUser && (
+              <Link href="/wishlist" className={styles.iconBtn} title="Saved Wishlist">
+                <Heart size={20} />
+                {wishlistCount > 0 && <span className={styles.badge}>{wishlistCount}</span>}
+              </Link>
+            )}
 
-            {/* Cart Button */}
-            <button
-              onClick={() => setIsCartOpen(true)}
-              className={styles.iconBtn}
-              title="Shopping Cart"
-              aria-label="Open Cart"
-            >
-              <ShoppingBag size={20} />
-              {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
-            </button>
+            {/* Cart Button — logged in only */}
+            {currentUser && (
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className={styles.iconBtn}
+                title="Shopping Cart"
+                aria-label="Open Cart"
+              >
+                <ShoppingBag size={20} />
+                {cartCount > 0 && <span className={styles.badge}>{cartCount}</span>}
+              </button>
+            )}
 
             <div className={styles.authGroup}>
               {currentUser ? (
@@ -100,18 +104,28 @@ export default function Navbar() {
 
                   {isProfileMenuOpen && (
                     <div className={styles.dropdownMenu}>
-                      <Link href={`/artist/${currentUser.id}`} className={styles.dropdownItem}>
-                        <User size={15} />
-                        My Artist Profile
-                      </Link>
+                      {currentUser.role === 'artist' && (
+                        <Link href={`/artist/${currentUser.id}`} className={styles.dropdownItem}>
+                          <User size={15} />
+                          My Artist Profile
+                        </Link>
+                      )}
                       <Link href="/orders" className={styles.dropdownItem}>
                         <PackageCheck size={15} />
                         My Orders
                       </Link>
-                      <Link href="/signup" className={styles.dropdownItem}>
-                        <PlusCircle size={15} />
-                        Submit New Artwork
-                      </Link>
+                      {currentUser.role === 'user' && (
+                        <Link href="/wishlist" className={styles.dropdownItem}>
+                          <Heart size={15} />
+                          My Wishlist
+                        </Link>
+                      )}
+                      {currentUser.role === 'artist' && (
+                        <Link href="/signup" className={styles.dropdownItem}>
+                          <PlusCircle size={15} />
+                          Submit New Artwork
+                        </Link>
+                      )}
                       <button onClick={logout} className={`${styles.dropdownItem} ${styles.logoutItem}`}>
                         <LogOut size={15} />
                         Log Out
@@ -121,8 +135,8 @@ export default function Navbar() {
                 </div>
               ) : (
                 <>
-                  <Link href="/orders" className={styles.myOrdersTextLink}>
-                    My Orders
+                  <Link href="/login" className={styles.loginBtn}>
+                    Sign In
                   </Link>
                   <Link href="/signup" className={styles.signUpBtn}>
                     Sign Up
@@ -155,27 +169,38 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link href="/wishlist" className={styles.mobileNavLink}>
-              Wishlist ({wishlistCount})
-            </Link>
-            <Link href="/orders" className={styles.mobileNavLink}>
-              My Orders
-            </Link>
+            {currentUser && (
+              <Link href="/wishlist" className={styles.mobileNavLink}>
+                Wishlist ({wishlistCount})
+              </Link>
+            )}
+            {currentUser && (
+              <Link href="/orders" className={styles.mobileNavLink}>
+                My Orders
+              </Link>
+            )}
 
             <div className={styles.mobileAuth}>
               {currentUser ? (
                 <>
-                  <Link href={`/artist/${currentUser.id}`} className={styles.mobileNavLink}>
-                    My Profile ({currentUser.name})
-                  </Link>
+                  {currentUser.role === 'artist' && (
+                    <Link href={`/artist/${currentUser.id}`} className={styles.mobileNavLink}>
+                      My Artist Profile
+                    </Link>
+                  )}
+                  {currentUser.role === 'user' && (
+                    <Link href="/wishlist" className={styles.mobileNavLink}>
+                      My Wishlist
+                    </Link>
+                  )}
                   <button onClick={logout} className={styles.loginBtn}>
                     Log Out
                   </button>
                 </>
               ) : (
                 <>
-                  <Link href="/signup" className={styles.loginBtn}>
-                    Login
+                  <Link href="/login" className={styles.loginBtn}>
+                    Sign In
                   </Link>
                   <Link href="/signup" className={styles.signUpBtn}>
                     Sign Up

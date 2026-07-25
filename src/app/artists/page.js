@@ -32,6 +32,9 @@ export default function ArtistsPage() {
             <Link href="/signup" className={styles.joinBtn}>
               Join as Artist
             </Link>
+            <Link href="/signup" className={styles.exploreBtn}>
+              Sign Up as Enthusiast
+            </Link>
           </div>
         </div>
       </header>

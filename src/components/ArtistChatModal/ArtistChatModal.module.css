@@ -337,6 +337,31 @@
   to { transform: scale(1); opacity: 1; }
 }
 
+.selfChatNotice {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-2xl);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.selfChatNotice h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.selfChatNotice p {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  max-width: 320px;
+}
+
 @media (max-width: 600px) {
   .modal {
     height: 100%;

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { useApp } from '@/context/AppContext';
 import { X, Send, Sparkles, CheckCircle2, User, Palette, MapPin } from 'lucide-react';
 import styles from './ArtistChatModal.module.css';
 
@@ -11,6 +12,8 @@ const COMMISION_CHIPS = [
 ];
 
 export default function ArtistChatModal({ artist, isOpen, onClose }) {
+  const { currentUser } = useApp();
+  const isOwnProfile = currentUser && currentUser.id === artist.id;
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -136,86 +139,96 @@ export default function ArtistChatModal({ artist, isOpen, onClose }) {
           </button>
         </div>
 
-        {/* Studio Commission Notice Banner */}
-        <div className={styles.noticeBanner}>
-          <Sparkles size={14} className={styles.sparkleIcon} />
-          <span>Direct Studio Messaging • Open for Custom Canvas & Digital Commissions</span>
-        </div>
-
-        {/* Message Thread */}
-        <div className={styles.messageList}>
-          {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`${styles.messageRow} ${
-                msg.role === 'user' ? styles.userRow : styles.artistRow
-              }`}
-            >
-              <div className={styles.avatarBubble}>
-                {msg.role === 'user' ? (
-                  <User size={14} />
-                ) : (
-                  <img src={artist.avatar} alt={artist.name} className={styles.bubbleImg} />
-                )}
-              </div>
-              <div className={styles.messageBubble}>
-                {msg.role === 'assistant' && (
-                  <span className={styles.senderName}>{artist.name.split(' ')[0]}</span>
-                )}
-                <p className={styles.msgText}>{msg.content}</p>
-              </div>
+        {isOwnProfile ? (
+          <div className={styles.selfChatNotice}>
+            <User size={32} />
+            <h3>This is your profile</h3>
+            <p>You cannot send a message to yourself. Other collectors and art enthusiasts can reach out to you here.</p>
+          </div>
+        ) : (
+          <>
+            {/* Studio Commission Notice Banner */}
+            <div className={styles.noticeBanner}>
+              <Sparkles size={14} className={styles.sparkleIcon} />
+              <span>Direct Studio Messaging • Open for Custom Canvas & Digital Commissions</span>
             </div>
-          ))}
 
-          {isLoading && (
-            <div className={`${styles.messageRow} ${styles.artistRow}`}>
-              <div className={styles.avatarBubble}>
-                <img src={artist.avatar} alt={artist.name} className={styles.bubbleImg} />
-              </div>
-              <div className={`${styles.messageBubble} ${styles.loadingBubble}`}>
-                <span className={styles.dot} />
-                <span className={styles.dot} />
-                <span className={styles.dot} />
-              </div>
+            {/* Message Thread */}
+            <div className={styles.messageList}>
+              {messages.map((msg, idx) => (
+                <div
+                  key={idx}
+                  className={`${styles.messageRow} ${
+                    msg.role === 'user' ? styles.userRow : styles.artistRow
+                  }`}
+                >
+                  <div className={styles.avatarBubble}>
+                    {msg.role === 'user' ? (
+                      <User size={14} />
+                    ) : (
+                      <img src={artist.avatar} alt={artist.name} className={styles.bubbleImg} />
+                    )}
+                  </div>
+                  <div className={styles.messageBubble}>
+                    {msg.role === 'assistant' && (
+                      <span className={styles.senderName}>{artist.name.split(' ')[0]}</span>
+                    )}
+                    <p className={styles.msgText}>{msg.content}</p>
+                  </div>
+                </div>
+              ))}
+
+              {isLoading && (
+                <div className={`${styles.messageRow} ${styles.artistRow}`}>
+                  <div className={styles.avatarBubble}>
+                    <img src={artist.avatar} alt={artist.name} className={styles.bubbleImg} />
+                  </div>
+                  <div className={`${styles.messageBubble} ${styles.loadingBubble}`}>
+                    <span className={styles.dot} />
+                    <span className={styles.dot} />
+                    <span className={styles.dot} />
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
 
-        {/* Quick Suggestion Chips */}
-        <div className={styles.chipRow}>
-          {COMMISION_CHIPS.map((chip) => (
-            <button
-              key={chip}
-              onClick={() => handleSend(chip)}
-              disabled={isLoading}
-              className={styles.chipBtn}
-            >
-              {chip}
-            </button>
-          ))}
-        </div>
+            {/* Quick Suggestion Chips */}
+            <div className={styles.chipRow}>
+              {COMMISION_CHIPS.map((chip) => (
+                <button
+                  key={chip}
+                  onClick={() => handleSend(chip)}
+                  disabled={isLoading}
+                  className={styles.chipBtn}
+                >
+                  {chip}
+                </button>
+              ))}
+            </div>
 
-        {/* Input Controls */}
-        <div className={styles.inputArea}>
-          <input
-            type="text"
-            className={styles.inputField}
-            placeholder={`Message ${artist.name.split(' ')[0]} about custom art...`}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={isLoading}
-          />
-          <button
-            className={styles.sendBtn}
-            onClick={() => handleSend()}
-            disabled={!input.trim() || isLoading}
-            aria-label="Send message"
-          >
-            <Send size={16} />
-          </button>
-        </div>
+            {/* Input Controls */}
+            <div className={styles.inputArea}>
+              <input
+                type="text"
+                className={styles.inputField}
+                placeholder={`Message ${artist.name.split(' ')[0]} about custom art...`}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                disabled={isLoading}
+              />
+              <button
+                className={styles.sendBtn}
+                onClick={() => handleSend()}
+                disabled={!input.trim() || isLoading}
+                aria-label="Send message"
+              >
+                <Send size={16} />
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

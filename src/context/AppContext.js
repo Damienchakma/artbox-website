@@ -149,6 +149,9 @@ export function AppProvider({ children }) {
       avatar: artistData.avatar || "/images/artworks/starry-night.jpg",
       cover: artistData.cover || "/images/hero-bg.jpg",
       verified: true,
+      role: "artist",
+      email: artistData.email || "",
+      password: artistData.password || "",
       movement: artistData.movement || "Contemporary Art",
       followers: "1 (New)",
       following: "0",
@@ -166,6 +169,8 @@ export function AppProvider({ children }) {
       const existingArtists = JSON.parse(localStorage.getItem("artbox_customArtists") || "[]");
       localStorage.setItem("artbox_customArtists", JSON.stringify([newArtist, ...existingArtists]));
       localStorage.setItem("artbox_currentUser", JSON.stringify(newArtist));
+      const existingUsers = JSON.parse(localStorage.getItem("artbox_users") || "[]");
+      localStorage.setItem("artbox_users", JSON.stringify([...existingUsers, newArtist]));
     } catch (e) {
       console.error("Failed to save artist:", e);
     }
@@ -181,6 +186,52 @@ export function AppProvider({ children }) {
     addToast(`Welcome to ArtBox, ${newArtist.name}! Account created.`, "success");
     return newArtist;
   }, [addArtwork]);
+
+  const createUserAccount = useCallback(({ name, email, password }) => {
+    const id = `user-${Date.now()}`;
+    const newUser = {
+      id,
+      name: name || "ArtBox User",
+      email: email || "",
+      password: password || "",
+      role: "user",
+      avatar: "/images/artworks/starry-night.jpg",
+    };
+
+    setCurrentUser(newUser);
+
+    try {
+      localStorage.setItem("artbox_currentUser", JSON.stringify(newUser));
+      const existingUsers = JSON.parse(localStorage.getItem("artbox_users") || "[]");
+      localStorage.setItem("artbox_users", JSON.stringify([...existingUsers, newUser]));
+    } catch (e) {
+      console.error("Failed to save user:", e);
+    }
+
+    addToast(`Welcome to ArtBox, ${newUser.name}!`, "success");
+    return newUser;
+  }, []);
+
+  const loginUser = useCallback((email, password) => {
+    const storedUsers = JSON.parse(
+      typeof window !== "undefined"
+        ? localStorage.getItem("artbox_users") || "[]"
+        : "[]"
+    );
+    const match = storedUsers.find(
+      (u) => u.email && u.email.toLowerCase() === email.toLowerCase()
+    );
+    if (match) {
+      setCurrentUser(match);
+      try {
+        localStorage.setItem("artbox_currentUser", JSON.stringify(match));
+      } catch (e) {}
+      addToast(`Welcome back, ${match.name}!`, "success");
+      return match;
+    }
+    addToast("No account found with that email address.", "error");
+    return null;
+  }, []);
 
   const logout = useCallback(() => {
     setCurrentUser(null);
@@ -399,6 +450,8 @@ export function AppProvider({ children }) {
       toggleLike,
       addArtwork,
       createArtistAccount,
+      createUserAccount,
+      loginUser,
       logout,
       getArtById,
       getReviewsByArt,
@@ -432,6 +485,8 @@ export function AppProvider({ children }) {
       toggleLike,
       addArtwork,
       createArtistAccount,
+      createUserAccount,
+      loginUser,
       logout,
       getArtById,
       getReviewsByArt,

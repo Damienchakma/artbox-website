@@ -315,7 +315,6 @@
 }
 
 .marketplaceLink {
-  color: var(--accent-light) !important;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
@@ -323,7 +322,7 @@
 }
 
 .navIcon {
-  color: var(--accent-primary);
+  color: inherit;
 }
 
 .myOrdersTextLink {

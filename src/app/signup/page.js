@@ -3,14 +3,15 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
-import { Upload, Sparkles, CheckCircle, ArrowRight, ArrowLeft, Image as ImageIcon, User, Palette } from 'lucide-react';
+import { Upload, Sparkles, CheckCircle, ArrowRight, ArrowLeft, Image as ImageIcon, User, Palette, Mail, Lock } from 'lucide-react';
 import styles from './SignupPage.module.css';
 
 export default function SignupPage() {
   const router = useRouter();
-  const { createArtistAccount } = useApp();
+  const { createArtistAccount, createUserAccount } = useApp();
 
-  const [step, setStep] = useState(1); // 1: Info, 2: Avatars, 3: Artwork, 4: Launching
+  const [role, setRole] = useState(null); // null | 'artist' | 'user'
+  const [step, setStep] = useState(0); // 0: Role, 1: Info, 2: Avatars, 3: Artwork, 4: Launching
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Form State
@@ -53,7 +54,30 @@ export default function SignupPage() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSelectRole = (selectedRole) => {
+    setRole(selectedRole);
+    if (selectedRole === 'user') {
+      // User flow is just one step
+      setStep(1);
+    } else {
+      setStep(1);
+    }
+  };
+
+  const handleUserSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setTimeout(() => {
+      createUserAccount({
+        name: formData.name || 'ArtBox User',
+        email: formData.email,
+        password: formData.password,
+      });
+      router.push('/');
+    }, 1200);
+  };
+
+  const handleArtistSubmit = (e) => {
     e.preventDefault();
     setStep(4);
     setIsSubmitting(true);
@@ -87,9 +111,16 @@ export default function SignupPage() {
     }, 1800);
   };
 
+  const title = role === 'user' ? 'Create Your Account' : role === 'artist' ? 'Join as Artist' : 'Join ArtBox';
+  const subtitle = role === 'user'
+    ? 'Create an account to browse, collect, review, and connect with artists.'
+    : role === 'artist'
+    ? 'Create your curated artist profile and showcase your masterworks to the ArtBox community.'
+    : 'Choose how you want to experience ArtBox.';
+
   return (
     <div className={styles.page}>
-      <title>Artist Sign Up & Portfolio Creation — ArtBox</title>
+      <title>{title} — ArtBox</title>
 
       <div className={styles.container}>
         <div className={styles.card}>
@@ -98,22 +129,118 @@ export default function SignupPage() {
             <div className={styles.iconBadge}>
               <Sparkles size={22} className={styles.goldIcon} />
             </div>
-            <h1 className={styles.title}>Join as Artist</h1>
-            <p className={styles.subtitle}>
-              Create your curated artist profile and showcase your masterworks to the ArtBox community.
-            </p>
-            {/* Step Indicators */}
-            <div className={styles.stepIndicator}>
-              <div className={`${styles.stepDot} ${step >= 1 ? styles.activeDot : ''}`}>1</div>
-              <div className={styles.stepLine} />
-              <div className={`${styles.stepDot} ${step >= 2 ? styles.activeDot : ''}`}>2</div>
-              <div className={styles.stepLine} />
-              <div className={`${styles.stepDot} ${step >= 3 ? styles.activeDot : ''}`}>3</div>
-            </div>
+            <h1 className={styles.title}>{title}</h1>
+            <p className={styles.subtitle}>{subtitle}</p>
+
+            {/* Step Indicators (only for artist flow) */}
+            {role === 'artist' && step > 0 && step < 4 && (
+              <div className={styles.stepIndicator}>
+                <div className={`${styles.stepDot} ${step >= 1 ? styles.activeDot : ''}`}>1</div>
+                <div className={styles.stepLine} />
+                <div className={`${styles.stepDot} ${step >= 2 ? styles.activeDot : ''}`}>2</div>
+                <div className={styles.stepLine} />
+                <div className={`${styles.stepDot} ${step >= 3 ? styles.activeDot : ''}`}>3</div>
+              </div>
+            )}
           </div>
 
-          {/* Step 1: Artist Credentials */}
-          {step === 1 && (
+          {/* Step 0: Role Selection */}
+          {step === 0 && (
+            <div className={styles.formStep}>
+              <h2 className={styles.stepTitle}>I want to join as...</h2>
+              <div className={styles.roleGrid}>
+                <button
+                  type="button"
+                  className={styles.roleCard}
+                  onClick={() => handleSelectRole('artist')}
+                >
+                  <div className={styles.roleIcon}>
+                    <Palette size={32} />
+                  </div>
+                  <h3 className={styles.roleTitle}>Artist</h3>
+                  <p className={styles.roleDesc}>
+                    Showcase your portfolio, sell original & digital artwork, and connect with collectors.
+                  </p>
+                </button>
+
+                <button
+                  type="button"
+                  className={styles.roleCard}
+                  onClick={() => handleSelectRole('user')}
+                >
+                  <div className={styles.roleIcon}>
+                    <User size={32} />
+                  </div>
+                  <h3 className={styles.roleTitle}>Art Enthusiast</h3>
+                  <p className={styles.roleDesc}>
+                    Browse the gallery, collect masterpieces, leave reviews, and chat with artists.
+                  </p>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* User Flow: Single Step Signup */}
+          {step === 1 && role === 'user' && (
+            <form className={styles.formStep} onSubmit={handleUserSubmit}>
+              <h2 className={styles.stepTitle}>Account Details</h2>
+
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>Full Name *</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="e.g. Jane Collector"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>
+                  <Mail size={14} /> Email Address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="jane@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label className={styles.label}>
+                  <Lock size={14} /> Password
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Create a password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
+              </div>
+
+              <div className={styles.btnRow}>
+                <button type="button" className={styles.backStepBtn} onClick={() => { setRole(null); setStep(0); }}>
+                  <ArrowLeft size={16} />
+                  Back
+                </button>
+                <button type="submit" className={styles.finishBtn} disabled={!formData.name || isSubmitting}>
+                  {isSubmitting ? 'Creating Account...' : 'Create Account'}
+                  <CheckCircle size={16} />
+                </button>
+              </div>
+            </form>
+          )}
+
+          {/* Artist Flow: Step 1 — Artist Credentials */}
+          {step === 1 && role === 'artist' && (
             <form className={styles.formStep} onSubmit={(e) => { e.preventDefault(); setStep(2); }}>
               <h2 className={styles.stepTitle}>1. Artist Profile Information</h2>
 
@@ -160,6 +287,31 @@ export default function SignupPage() {
                 </div>
               </div>
 
+              <div className={styles.gridRow}>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="artist@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={styles.input}
+                  />
+                </div>
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Create a password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={styles.input}
+                  />
+                </div>
+              </div>
+
               <div className={styles.inputGroup}>
                 <label className={styles.label}>Artist Bio / Statement</label>
                 <textarea
@@ -173,7 +325,10 @@ export default function SignupPage() {
               </div>
 
               <div className={styles.btnRow}>
-                <div />
+                <button type="button" className={styles.backStepBtn} onClick={() => { setRole(null); setStep(0); }}>
+                  <ArrowLeft size={16} />
+                  Back
+                </button>
                 <button type="submit" className={styles.nextBtn} disabled={!formData.name}>
                   Next: Profile Imagery
                   <ArrowRight size={16} />
@@ -240,7 +395,7 @@ export default function SignupPage() {
 
           {/* Step 3: First Artwork Submission */}
           {step === 3 && (
-            <form className={styles.formStep} onSubmit={handleSubmit}>
+            <form className={styles.formStep} onSubmit={handleArtistSubmit}>
               <h2 className={styles.stepTitle}>3. Submit Your First Masterpiece</h2>
 
               <div className={styles.inputGroup}>
@@ -311,7 +466,7 @@ export default function SignupPage() {
             </form>
           )}
 
-          {/* Step 4: Animated Launching Profile State */}
+          {/* Step 4: Animated Launching Profile State (artist only) */}
           {step === 4 && (
             <div className={styles.launchingState}>
               <div className={styles.spinnerRing} />

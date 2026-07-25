@@ -50,6 +50,53 @@
   padding: var(--space-4xl) var(--space-xl);
 }
 
+.headerCta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.joinBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--accent-gradient);
+  color: var(--text-inverse);
+  border-radius: var(--border-radius-full);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.joinBtn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+.exploreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--border-radius-full);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.exploreBtn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
 .artistGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
