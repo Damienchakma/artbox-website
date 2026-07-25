@@ -175,9 +175,12 @@
 }
 
 .userRow .messageBubble {
-  background: var(--accent-primary);
-  color: var(--text-inverse);
+  background: #3D3120;
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  color: #F5EED8;
+  font-weight: 500;
   border-bottom-right-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 .assistantRow .messageBubble {
