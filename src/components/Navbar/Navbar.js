@@ -94,7 +94,7 @@ export default function Navbar() {
                     onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
                   >
                     <img
-                      src={currentUser.avatar || '/images/artworks/starry-night.jpg'}
+                      src={currentUser.avatar}
                       alt={currentUser.name}
                       className={styles.userAvatarImg}
                     />

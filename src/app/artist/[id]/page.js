@@ -17,17 +17,14 @@ export default function ArtistProfilePage({ params }) {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
-  // Get artworks by this artist or matching movement
+  // Get artworks by this artist only
   const artistArtworks = artworks.filter(
     (a) =>
       a.artist.toLowerCase().includes(artist.name.toLowerCase()) ||
       artist.name.toLowerCase().includes(a.artist.toLowerCase())
   );
   
-  // Fallback to related movement artworks if specific artist has few items
-  const displayArtworks = artistArtworks.length > 0
-    ? artistArtworks
-    : artworks.slice(0, 6);
+  const displayArtworks = artistArtworks;
 
   const handleFollow = () => {
     setIsFollowing(!isFollowing);
@@ -177,13 +174,21 @@ export default function ArtistProfilePage({ params }) {
             <h2 className={styles.galleryTitle}>Featured Artworks ({displayArtworks.length})</h2>
           </div>
 
-          <div className={styles.artGrid}>
-            {displayArtworks.map((art) => (
-              <div key={art.id} className={styles.artCardItem}>
-                <ArtCard art={art} />
-              </div>
-            ))}
-          </div>
+          {displayArtworks.length > 0 ? (
+            <div className={styles.artGrid}>
+              {displayArtworks.map((art) => (
+                <div key={art.id} className={styles.artCardItem}>
+                  <ArtCard art={art} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '4rem 1rem', opacity: 0.5 }}>
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary, #999)' }}>
+                No artworks published yet. Check back soon!
+              </p>
+            </div>
+          )}
         </div>
       </section>
     </div>

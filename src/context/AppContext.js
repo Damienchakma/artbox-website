@@ -1,11 +1,30 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, useMemo, useEffect } from "react";
+import { createContext, useContext, useState, useCallback, useMemo, useEffect, useRef } from "react";
 import artworksData from "@/data/artworks";
 import reviewsData from "@/data/reviews";
 import artistsData from "@/data/artists";
 
 const AppContext = createContext(null);
+
+// Generate a unique SVG avatar from a name's initials with a deterministic color
+function generateInitialsAvatar(name) {
+  const initials = (name || "A")
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2);
+  // Deterministic hue from name so same name always gets same color
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = ((hash % 360) + 360) % 360;
+  const bg = `hsl(${hue}, 55%, 45%)`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><rect width="128" height="128" fill="${bg}"/><text x="64" y="64" dominant-baseline="central" text-anchor="middle" fill="white" font-family="Inter, system-ui, sans-serif" font-size="48" font-weight="600">${initials}</text></svg>`;
+  return `data:image/svg+xml;base64,${btoa(svg)}`;
+}
 
 export function AppProvider({ children }) {
   const [artworks, setArtworks] = useState(artworksData);
@@ -142,20 +161,21 @@ export function AppProvider({ children }) {
 
   const createArtistAccount = useCallback((artistData, initialArtwork) => {
     const slug = artistData.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const defaultAvatar = generateInitialsAvatar(artistData.name);
     const newArtist = {
       id: slug,
       name: artistData.name,
       handle: artistData.handle || `@${slug.replace(/-/g, "_")}`,
-      avatar: artistData.avatar || "/images/artworks/starry-night.jpg",
+      avatar: artistData.avatar || defaultAvatar,
       cover: artistData.cover || "/images/hero-bg.jpg",
       verified: true,
       role: "artist",
       email: artistData.email || "",
       password: artistData.password || "",
       movement: artistData.movement || "Contemporary Art",
-      followers: "1 (New)",
+      followers: "0",
       following: "0",
-      avgRating: 5.0,
+      avgRating: 0,
       bio: artistData.bio || "Passionate artist creating original works and sharing visual perspectives with the ArtBox gallery community.",
       tags: artistData.tags || [artistData.movement || "Contemporary", "Original Art", "Oil on Canvas"],
       location: artistData.location || "International Studio",
@@ -189,13 +209,14 @@ export function AppProvider({ children }) {
 
   const createUserAccount = useCallback(({ name, email, password }) => {
     const id = `user-${Date.now()}`;
+    const userName = name || "ArtBox User";
     const newUser = {
       id,
-      name: name || "ArtBox User",
+      name: userName,
       email: email || "",
       password: password || "",
       role: "user",
-      avatar: "/images/artworks/starry-night.jpg",
+      avatar: generateInitialsAvatar(userName),
     };
 
     setCurrentUser(newUser);
@@ -292,8 +313,9 @@ export function AppProvider({ children }) {
     return { totalArtworks, totalReviews, avgRating };
   }, [artworks, reviews]);
 
+  const toastIdRef = useRef(0);
   const addToast = useCallback((message, type = "success") => {
-    const id = Date.now();
+    const id = ++toastIdRef.current;
     setToasts((prev) => [...prev, { id, message, type }]);
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));

@@ -23,7 +23,7 @@ export default function SignupPage() {
     movement: 'Contemporary Expressionism',
     bio: '',
     location: '',
-    avatar: '/images/artworks/starry-night.jpg',
+    avatar: '',
     cover: '/images/hero-bg.jpg',
     // Artwork details
     artTitle: '',
@@ -347,7 +347,13 @@ export default function SignupPage() {
                 <div className={styles.uploadItem}>
                   <label className={styles.label}>Profile Avatar Picture</label>
                   <div className={styles.previewAvatarRing}>
-                    <img src={formData.avatar} alt="Avatar Preview" className={styles.previewAvatarImg} />
+                    {formData.avatar ? (
+                      <img src={formData.avatar} alt="Avatar Preview" className={styles.previewAvatarImg} />
+                    ) : (
+                      <div className={styles.previewAvatarImg} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.08)' }}>
+                        <User size={40} style={{ opacity: 0.4, color: '#ccc' }} />
+                      </div>
+                    )}
                   </div>
                   <label className={styles.uploadFileBtn}>
                     <Upload size={14} />
